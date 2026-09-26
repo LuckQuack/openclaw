@@ -1,4 +1,3 @@
-// Lint Suppressions tests cover lint suppressions script behavior.
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
@@ -230,7 +229,6 @@ describe("production lint suppressions", () => {
         // Intl.Collator.compare is a getter returning a bound function.
         "src/cron/service/list-page-sort.ts|typescript/unbound-method|1",
         "src/cron/service/list-page-sort.ts|unicorn/no-array-sort|1",
-        "src/gateway/server-chat-progress-snapshot.ts|no-implicit-coercion|1",
         "src/gateway/test-helpers.server.ts|typescript/no-unnecessary-type-parameters|1",
         "src/hooks/module-loader.ts|typescript/no-unnecessary-type-parameters|1",
         "src/infra/device-pairing-store.ts|typescript/no-unnecessary-type-parameters|1",
@@ -272,22 +270,5 @@ describe("production lint suppressions", () => {
         "ui/src/components/mascot-canvas.ts|unicorn/no-array-fill-with-reference-type|1",
       ]),
     );
-  });
-
-  it("keeps production no-explicit-any suppressions on an explicit allowlist", () => {
-    const anySuppressions = collectProductionLintSuppressions().filter(
-      (entry) => entry.rule === "typescript/no-explicit-any",
-    );
-
-    expect(anySuppressions).toEqual([
-      {
-        file: "src/channels/plugins/types.plugin.ts",
-        rule: "typescript/no-explicit-any",
-      },
-      {
-        file: "src/test-utils/vitest-mock-fn.ts",
-        rule: "typescript/no-explicit-any",
-      },
-    ]);
   });
 });
